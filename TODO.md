@@ -19,3 +19,10 @@ Published as an independent GitHub Pages concept. Review excerpts are static; co
 - [x] Push repository
 - [x] Verify GitHub Pages deployment
 
+
+## Exploded moving animation
+- [x] Generate house, truck, and furniture artwork
+- [x] Build the furniture-loading, door-closing, and drive-away sequence
+- [x] Add scroll, play/pause, replay, and reduced-motion controls
+- [x] Check desktop/mobile animation stages
+- [x] Publish the update to GitHub Pages
