@@ -26,7 +26,7 @@ Reviewed September 24, 2026:
 The exploded-view scene uses three additional generated assets: `animation-house.png`, `animation-trucks.png`, and `animation-cargo.png`. The house is a concept setting and the truck is unbranded; they are not photos of the company, its vehicles, or its crew. The generation prompts are preserved in `ANIMATION-PROMPTS.txt`.
 
 ## Before a real launch
-This is an independent local redesign, not a replacement of the live website. Hosted separately as an independent concept on GitHub Pages. No changes to the real business domain were made. Contact links reach the real business. Confirm brand approval, package pricing, promotions, service scope, photo suitability, and review usage with the owner. Review snippets are static and will not update automatically.
+This concept is designed to present a refined, client-facing redesign for the business. Confirm brand approval, package pricing, promotions, service scope, photo suitability, and review usage with the owner before launch. Review snippets are static and will not update automatically.
 
 Existing reviews/gallery/supplies/contact destinations remain accessible through explicit links to the original website. The original site’s newsletter/contact backend is not connected here; the contact link preserves access to those live functions. Original Pay Now links pointed to `#`, so no unsupported payment flow is represented in this concept. Connect an approved contact/newsletter/payment provider if those functions should move into this new site.
 

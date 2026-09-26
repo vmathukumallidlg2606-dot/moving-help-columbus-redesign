@@ -3,6 +3,36 @@ const menu=document.querySelector('.menu'),nav=document.querySelector('#mobile-n
 menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',open);nav.hidden=!open;});
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.hidden=true;menu.setAttribute('aria-expanded','false')}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!nav.hidden){nav.hidden=true;menu.setAttribute('aria-expanded','false');menu.focus();}});
-if('IntersectionObserver' in window&&!reduced.matches){document.documentElement.classList.add('motion');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(e=>observer.observe(e));}
+if('IntersectionObserver' in window&&!reduced.matches){document.documentElement.classList.add('motion');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(e=>observer.observe(e));}
+
+const competitionBanner=document.querySelector('.competition-banner');
+if(competitionBanner && 'IntersectionObserver' in window && !reduced.matches){
+  const competitionObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        competitionObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.35});
+  competitionObserver.observe(competitionBanner);
+} else if (competitionBanner) {
+  competitionBanner.classList.add('visible');
+}
+
+const scrollQuoteSection=document.querySelector('.scroll-quote-wrap');
+if(scrollQuoteSection && 'IntersectionObserver' in window && !reduced.matches){
+  const scrollQuoteObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        scrollQuoteSection.classList.add('visible');
+        scrollQuoteObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.2});
+  scrollQuoteObserver.observe(scrollQuoteSection);
+} else if (scrollQuoteSection) {
+  scrollQuoteSection.classList.add('visible');
+}
 const visual=document.querySelector('.hero-visual'),frame=document.querySelector('.image-frame');visual.addEventListener('pointermove',e=>{if(reduced.matches||e.pointerType!=='mouse')return;const r=visual.getBoundingClientRect();frame.style.setProperty('--ry',`${((e.clientX-r.left)/r.width-.5)*10}deg`);frame.style.setProperty('--rx',`${-((e.clientY-r.top)/r.height-.5)*8}deg`)});visual.addEventListener('pointerleave',()=>{frame.style.removeProperty('--ry');frame.style.removeProperty('--rx')});reduced.addEventListener('change',()=>{if(reduced.matches)document.documentElement.classList.remove('motion')});
 const form=document.querySelector('#quote-form'),preview=document.querySelector('#message-preview'),status=document.querySelector('#form-status');form.addEventListener('submit',e=>{e.preventDefault();const date=document.querySelector('#date').value;const message=`Hi Bruce, I'd like a quote for ${document.querySelector('#service').value.toLowerCase()}. Move size: ${document.querySelector('#size').value}.${date?' Preferred date: '+date+'.':''}${document.querySelector('#details').value.trim()?' Details: '+document.querySelector('#details').value.trim():''} Could you confirm availability and pricing?`;preview.value=message;document.querySelector('#sms-link').href='sms:+16147173969?body='+encodeURIComponent(message);document.querySelector('#message-result').hidden=false;status.textContent='Message prepared, not sent. Open your messaging app or copy it below.';preview.focus();});document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(preview.value);status.textContent='Message copied. Nothing has been sent.'}catch{preview.focus();preview.select();status.textContent='Select and copy the message, then paste it into your messaging app.'}});
