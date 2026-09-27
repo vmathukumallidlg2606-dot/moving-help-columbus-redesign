@@ -8,9 +8,14 @@
 <meta name="description" content="Local and long-distance moving, packing, and moving labor in Columbus, Ohio. Call or text 614-717-3969.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ff743d'/%3E%3Cpath d='M15 32h32M34 19l13 13-13 13' fill='none' stroke='%230b1524' stroke-width='7'/%3E%3C/svg%3E">
 <style>
+  @media (max-width: 767px) {
+    .mobile-hidden-section {
+      display: none !important;
+    }
+  }
 :root{--navy:#0b1524;--ink:#102137;--orange:#ff743d;--paper:#f4f6f8;--muted:#5b6573;--line:#dce1e7;--p:0;--mx:0;--my:0;--explode:0}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:24px}
+html{scroll-behavior:auto;scroll-padding-top:24px}
 body{margin:0;font-family:"Segoe UI",Avenir,Arial,sans-serif;color:var(--ink);font-size:16px;line-height:1.65;background:#fff}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
@@ -31,8 +36,34 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:24p
 .menu,.mobile-dock{display:none}
 .mobile-nav{padding:8px 24px 18px;background:#08111d}
 .mobile-nav a{display:block;padding:11px 0;color:#e8eef5}
-.eyebrow{font-size:11px;letter-spacing:2.4px;font-weight:800;margin:0 0 22px}
-h1,h2,h3,p{margin-top:0}
+.chat-widget{position:fixed;right:20px;bottom:20px;z-index:1000}
+.chat-widget .chat-panel{position:absolute;right:0;bottom:78px;width:min(390px,calc(100vw - 26px));background:#fff;border:1px solid rgba(16,33,55,.08);border-radius:18px;box-shadow:0 22px 50px rgba(9,17,28,.2);overflow:hidden;opacity:0;transform:translateY(14px) scale(.98);pointer-events:none;transition:all .25s ease;}
+.chat-widget.open .chat-panel{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.chat-header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid #e8edf2;background:linear-gradient(180deg,#0d1b2c,#0b1524);color:#fff}
+.chat-brand{display:flex;align-items:center;gap:12px}
+.chat-logo{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#ffb38a,#ff743d);color:#071520;font-weight:900;font-size:14px}
+.chat-brand strong{display:block;font-size:14px;line-height:1.2}
+.chat-brand small{display:block;font-size:11px;opacity:.8}
+.chat-close{border:0;background:rgba(255,255,255,.08);color:#fff;width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer}
+.chat-reset{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#fff;padding:6px 8px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer}
+.chat-messages{max-height:340px;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f8fafc}
+.message{max-width:85%;padding:10px 12px;border-radius:12px;font-size:14px;line-height:1.5}
+.message.assistant{align-self:flex-start;background:#fff;border:1px solid #dfe8f0;color:#13283f}
+.message.user{align-self:flex-end;background:#ffefe7;border:1px solid #ffc5a7;color:#1b2d40}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 12px;background:#fff;border-top:1px solid #edf2f7}
+.suggestion-pill{border:1px solid #f0d7c6;background:#fffaf7;color:#17304e;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
+.chat-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid #e8edf2;background:#fff}
+.chat-form input{flex:1;border:1px solid #ccd7e0;border-radius:10px;padding:11px 12px;background:#f9fafb;color:#122238}
+.chat-form button{border:0;border-radius:10px;padding:10px 14px;background:linear-gradient(135deg,#ff753d,#ff9b5d);color:#0b1524;font-weight:800;cursor:pointer}
+.chat-toggle{position:relative;display:grid;place-items:center;width:72px;height:72px;border:0;border-radius:22px;background:linear-gradient(135deg,#ff8c5c 0%,#ff743d 45%,#f56b2a 100%);color:#0b1524;font-size:20px;font-weight:900;letter-spacing:.04em;box-shadow:0 18px 38px rgba(255,116,61,.4), inset 0 1px 0 rgba(255,255,255,.35);cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;padding:0;overflow:hidden}
+.chat-toggle::before{content:"";position:absolute;inset:5px;border-radius:18px;border:1px solid rgba(11,21,36,.18);background:linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,0));pointer-events:none}
+.chat-toggle:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 22px 44px rgba(255,116,61,.5)}
+.chat-widget.open .chat-toggle{transform:scale(.96)}
+.chat-toggle .mini-dot{position:absolute;right:10px;top:10px;width:12px;height:12px;border-radius:50%;background:#2fe077;box-shadow:0 0 0 2px #fff;z-index:2}
+.chat-toggle-wrap{position:relative}
+.chat-button-image{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);filter:saturate(1.05) contrast(1.05)}
+@media (max-width:768px){.chat-widget{right:14px;bottom:70px}.chat-widget .chat-panel{width:min(350px,calc(100vw - 18px))}}
+.eyebrow{font-size:11px;letter-spacing:2.4px;font-weight:800;margin:0 0 22px}h1,h2,h3,p{margin-top:0}
 h1{font-size:clamp(52px,6.2vw,92px);line-height:.98;letter-spacing:-3.8px;margin-bottom:22px}
 em{font-style:normal;color:var(--orange)}
 .lead{max-width:460px;font-size:18px;color:#c5ced8;margin-bottom:30px}
@@ -44,6 +75,11 @@ em{font-style:normal;color:var(--orange)}
 .simple{font-size:14px;font-weight:700;border-bottom:1px solid #ffffff35;padding-bottom:6px}
 .hero-meta{display:flex;gap:22px;margin-top:32px;color:#9aa8b8;font-size:12px;flex-wrap:wrap}
 .hero-meta span:before{content:"✓";color:var(--orange);margin-right:7px}
+.hero-hours-banner{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;padding:14px 16px;border:1px solid rgba(255,116,61,.25);border-radius:999px;background:rgba(255,255,255,.04);backdrop-filter:blur(8px);font-size:13px;color:#e6edf5;max-width:560px}
+.hero-hours-banner strong{font-weight:800;color:#fff}
+.hero-hours-banner span{color:#cfdae6}
+.hero-hours-banner a{color:#fff;text-decoration:none;font-weight:700}
+.hero-hours-banner a:hover{text-decoration:underline}
 
 /* Sticky 3D hero */
 .hero-pin{height:240vh;background:radial-gradient(1200px 700px at 78% 28%,#1a3358 0%,#0b1524 46%,#070d16 100%);color:#f4f7fb;position:relative}
@@ -96,12 +132,32 @@ transition:box-shadow .3s}
 .explode-heading h2{font-size:clamp(34px,4vw,56px);line-height:1.05;letter-spacing:-2px;margin:0}
 .explode-heading p{margin:0;color:var(--muted);max-width:360px}
 .film-stage{position:relative;height:min(64vh,580px);perspective:1600px}
-.burst{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(8deg) rotateY(calc(-18deg + var(--explode)*22deg))}
-.slice{position:absolute;width:min(28%,250px);aspect-ratio:16/9;left:50%;top:52%;margin-left:-14%;margin-top:-8%;border-radius:14px;overflow:hidden;border:1px solid #fff;box-shadow:0 20px 40px #10213722;background:#111;pointer-events:none;
-transform:translate3d(calc(var(--sx)*var(--explode)*1.35px),calc(var(--sy)*var(--explode)*1.2px),calc(var(--sz)*var(--explode)*1px)) rotateY(calc(var(--ry)*var(--explode)*1deg)) rotateX(calc(var(--rx)*var(--explode)*1deg))}
+.burst{position:absolute;inset:0;transform-style:preserve-3d;transform:translate3d(var(--hoverX, 0px), var(--hoverY, 0px), 0) scale(var(--burst-scale, 1)) rotateX(calc(8deg + var(--rotateX, 0deg))) rotateY(calc(-18deg + var(--explode)*22deg + var(--rotateY, 0deg)));touch-action:none;cursor:grab}
+.film-zoom-controls{position:absolute;right:18px;bottom:18px;display:flex;gap:8px;z-index:20}
+.film-zoom-button{width:38px;height:38px;border:0;border-radius:12px;background:linear-gradient(135deg, rgba(255,255,255,.94), rgba(239,233,228,.9));color:var(--ink);font-size:22px;line-height:1;cursor:pointer;box-shadow:0 10px 18px rgba(16,33,55,.12), inset 0 1px 0 rgba(255,255,255,.7);display:grid;place-items:center;padding:0}
+.film-zoom-button:hover{transform:translateY(-1px)}
+.burst.interactive{cursor:grab}
+.burst-dragging .burst{cursor:grabbing !important}
+.slice{position:absolute;width:min(24%,220px);aspect-ratio:16/9;left:50%;top:52%;margin-left:-12%;margin-top:-7%;border-radius:14px;overflow:hidden;box-shadow:0 18px 34px #10213718;background:#111;pointer-events:auto;cursor:pointer;z-index:var(--layer,2);
+transform:translate3d(calc(var(--sx)*var(--explode)*0.9px),calc(var(--sy)*var(--explode)*0.8px),calc(var(--sz)*var(--explode)*0.7px)) rotateY(calc(var(--ry)*var(--explode)*0.8deg)) rotateX(calc(var(--rx)*var(--explode)*0.8deg))}
+.slice img{pointer-events:none}
+.slice .video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.9));display:grid;place-items:center;box-shadow:0 8px 20px rgba(16,33,55,.12);font-size:22px;color:var(--ink);border:0;cursor:pointer;opacity:0.96;pointer-events:auto;z-index:3}
+.slice .video-play:before{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,116,61,0.12),rgba(255,116,61,0));}
+.slice img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Video modal */
+.video-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:1200}
+.video-modal.open{display:flex}
+.video-modal .video-modal-backdrop{position:absolute;inset:0;background:rgba(3,6,10,0.6);backdrop-filter:blur(6px)}
+.video-modal .video-modal-content{position:relative;width:min(1100px,92vw);height:min(620px,56vh);background:#000;border-radius:12px;overflow:hidden;box-shadow:0 40px 100px rgba(6,12,24,.6);z-index:2}
+.video-modal .video-frame{width:100%;height:100%;background:#000}
+.video-modal .video-modal-close{position:absolute;right:10px;top:10px;z-index:3;border:0;background:rgba(255,255,255,.06);color:#fff;width:38px;height:38px;border-radius:8px;font-size:16px;cursor:pointer}
+
 .slice img,.slice video{width:100%;height:100%;object-fit:cover;display:block}
-.slice.core{width:min(54%,540px);margin-left:-27%;margin-top:-15%;z-index:12;pointer-events:auto;box-shadow:0 30px 70px #10213740,0 0 0 1px #ff743d55}
+.slice.core{width:min(30%,300px);margin-left:-15%;margin-top:-15%;z-index:12;pointer-events:auto;box-shadow:0 30px 70px #10213740}
 .slice.core video{background:#0b1524}
+.film-title-wrap{position:absolute;left:50%;top:-4px;transform:translateX(-50%);text-align:center;z-index:10;white-space:nowrap}
+.film-title-wrap h2{margin:0;font-size:clamp(30px,2.7vw,48px);letter-spacing:-1.4px;line-height:1.05;font-weight:800;color:#122136}
 .frame-note{margin-top:16px;font-size:12px;color:var(--muted)}
 .explode-hud{display:flex;gap:18px;align-items:center;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:1.4px;color:#a53f14}
 
@@ -140,6 +196,7 @@ main{overflow:clip}
 .section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:35px;margin-bottom:42px}
 h2{font-size:clamp(38px,4vw,58px);line-height:1.1;letter-spacing:-2px;margin:0}
 .section-heading>p{color:var(--muted);margin:0}
+.services-band{padding-top:92px}
 .services{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .service{padding:30px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,#fff,#f6f7f9);transition:transform .3s,box-shadow .3s}
 .service:hover{transform:translateY(-7px);box-shadow:0 20px 35px #10213712}
@@ -148,9 +205,42 @@ h2{font-size:clamp(38px,4vw,58px);line-height:1.1;letter-spacing:-2px;margin:0}
 h3{font-size:25px;line-height:1.25;letter-spacing:-.6px;margin-bottom:17px}
 .service p{color:var(--muted)}
 .service-link{display:block;margin-top:26px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;font-weight:700}
+.service-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.service-card{display:flex;flex-direction:column;gap:14px;padding:24px 22px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#fff,#fafbfc);box-shadow:0 12px 30px rgba(16,33,55,.04);transition:transform .25s ease,box-shadow .25s ease;min-height:250px}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 18px 30px rgba(16,33,55,.08)}
+.service-tag{display:inline-flex;align-self:flex-start;padding:7px 12px;border-radius:999px;background:#fff0ea;color:#b44313;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+.service-card h3{margin:0;font-size:22px;letter-spacing:-.5px}
+.service-card p{margin:0;color:var(--muted)}
+.service-card .service-link{margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+.service-carousel-shell{position:relative;margin-top:28px}
+.service-carousel-controls{position:absolute;inset:0;z-index:4;pointer-events:none}
+.service-carousel-prev,.service-carousel-next{position:absolute;top:50%;transform:translateY(-50%);pointer-events:auto;width:48px;height:48px;border:0;border-radius:50%;background:linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(245,241,235,0.95) 50%, rgba(236,229,221,0.95) 100%);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;box-shadow:0 12px 26px rgba(16,33,55,.08), inset 0 1px 0 rgba(255,255,255,.6);transition:transform .18s ease, box-shadow .18s ease}
+.service-carousel-prev{left:12px}
+.service-carousel-next{right:12px}
+.service-carousel-prev:hover,.service-carousel-next:hover{transform:translateY(-52%);box-shadow:0 18px 34px rgba(16,33,55,.12), inset 0 1px 0 rgba(255,255,255,.68)}
+.service-carousel-viewport{position:relative;overflow:hidden;border-radius:18px;padding:0 64px}
+.service-carousel-track{display:flex;gap:22px;transition:transform .45s ease;will-change:transform}
+.service-carousel-track .service-card{flex:0 0 calc((100% - 66px) / 4);min-width:0}
+.service-carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.service-carousel-dots button{width:10px;height:10px;border-radius:50%;border:0;background:rgba(15,29,44,.18);cursor:pointer;padding:0}
+.service-carousel-dots button.active{background:var(--ink)}
+.service-meta{margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.service-meta-carousel{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px}
+.service-meta-viewport{overflow:hidden;border-radius:999px}
+.service-meta-track{display:flex;gap:12px;transition:transform .35s ease;will-change:transform}
+.service-meta-item{flex:0 0 auto;padding:8px 12px;border-radius:999px;background:#f1f4f7;color:var(--ink);font-size:12px;font-weight:700;white-space:nowrap}
+.service-meta-button{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);font-size:18px;line-height:1;cursor:pointer}
+.service-meta-button:hover{border-color:#c9d0d8}
 .extra-services{margin-top:27px;font-size:13px;color:var(--muted);line-height:2}
 .extra-services span{font-weight:700;color:var(--ink);margin-right:8px}
 .extra-services a{display:block;color:var(--ink);text-decoration:underline}
+.eviction-wrap{padding-top:96px}
+.eviction-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:stretch}
+.eviction-copy{padding:30px 26px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,#fff,#f8fafc)}
+.eviction-copy p{color:var(--muted);margin-bottom:18px}
+.eviction-points{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.eviction-points li{position:relative;padding-left:24px;color:var(--ink);font-weight:600}
+.eviction-points li:before{content:"✓";position:absolute;left:0;color:#b44313}
 .pricing{background:var(--paper)}
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 .price-card{background:#fff;padding:36px;border:1px solid var(--line);border-radius:18px}
@@ -159,12 +249,18 @@ h3{font-size:25px;line-height:1.25;letter-spacing:-.6px;margin-bottom:17px}
 .price{font-size:64px;line-height:1.2;font-weight:700;letter-spacing:-3px;margin:24px 0 12px}
 .price span{font-size:14px;font-weight:400;letter-spacing:0;margin-left:12px;color:var(--muted)}
 .price-card>p{color:var(--muted)}
-.price-card ul{list-style:none;padding:0;margin:22px 0 28px}
+.price-card ul{list-style:none;padding:0;margin:22px 0 8px}
 .price-card li{padding:7px 0;font-size:15px}
 .price-card li:before{content:"✓";color:#b44313;margin-right:12px}
+.price-card .promo-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff3ec;color:#8b2d10;border:1px solid #ffd9c3;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px}
+.price-card .promo-badge:before{content:"★";font-size:14px}
+.price-card .card-discount-note{margin:0 0 18px;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.02em}
 .price-card .button{width:100%}
 .featured{border-color:#ff743d;box-shadow:0 15px 30px #10213706}
 .featured .price-top b{background:#fff0e8}
+.promo-strip{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff,#f8fafc);margin:18px 0 12px}
+.promo-strip span{font-weight:700;color:var(--ink)}
+.promo-strip span:last-child{color:#8b2d10}
 .price-note{font-size:12px;color:var(--muted);max-width:960px;margin:24px 0 28px}
 .discount{display:flex;gap:25px;border-top:1px solid var(--line);padding-top:24px;font-size:14px}
 .discount span{color:var(--muted)}
@@ -314,7 +410,7 @@ html{scroll-behavior:auto}
 .competition-banner {
     padding: 32px 20px 44px;
     text-align: center;
-    background: linear-gradient(180deg, #0b1524 0%, #101b2c 100%);
+    background: linear-gradient(180deg, #05070a 0%, #090d13 100%);
     color: #fff;
     position: relative;
     overflow: hidden;
@@ -346,7 +442,9 @@ html{scroll-behavior:auto}
     bottom: -180px;
 }
 .competition-text {
-    font-size: clamp(26px, 4.5vw, 44px);
+    display: inline-block;
+    max-width: min(95vw, 1200px);
+    font-size: clamp(26px, 4vw, 44px);
     font-weight: 900;
     letter-spacing: -1.2px;
     line-height: 1.08;
@@ -361,10 +459,30 @@ html{scroll-behavior:auto}
     z-index: 2;
     animation: gradientFlow 5s linear infinite;
     text-shadow: 0 0 24px rgba(255,116,61,0.12);
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+}
+.competition-text::after {
+    content: "";
+    display: inline-block;
+    width: 0.68em;
+    height: 0.8em;
+    margin-left: 0.12em;
+    vertical-align: -0.08em;
+    background: var(--orange);
+    border-radius: 2px;
+    box-shadow: 0 0 12px rgba(255,116,61,0.65);
+    opacity: 0;
+    animation: cursorBlink 1s steps(1, end) infinite;
 }
 .competition-banner.visible .competition-text {
     opacity: 1;
     transform: translateY(0) scale(1);
+}
+.competition-banner.visible .competition-text::after {
+    opacity: 1;
 }
 .banner-glow {
     position: absolute;
@@ -383,6 +501,10 @@ html{scroll-behavior:auto}
 }
 @keyframes gradientFlow {
     to { background-position: 200% center; }
+}
+@keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 </style>
 </head>
@@ -420,9 +542,12 @@ html{scroll-behavior:auto}
         <p class="lead">Scroll and the scene unfolds: boxes lift, frames fan out, and the reconstructed move film comes apart in space. Then talk to Bruce about the real one.</p>
         <div class="actions">
           <a class="button orange" href="#videos">Watch us <span>↗</span></a>
-          <a class="simple" href="tel:+16147173969">Talk to Bruce <span>↗</span></a>
+          <div class="talk-bubble">
+            <a class="simple" href="tel:+16147173969">Talk with us <span>↗</span></a>
+          </div>
         </div>
         <div class="hero-meta"><span>Locally owned &amp; operated</span><span>Local + long distance</span></div>
+        <div class="hero-hours-banner"><strong>Open 7 days a week 6 a.m. to 10 p.m.</strong><span>or TEXT 24/7 us at <a href="tel:+16147173969">614-717-3969</a></span></div>
       </div>
       <div class="stage" id="stage" aria-hidden="true">
         <div class="world" id="world">
@@ -431,11 +556,11 @@ html{scroll-behavior:auto}
           <div class="ring"></div>
           <div class="ring two"></div>
           <div class="deck">
-            <div class="card" style="--i:0"><img src="assets/frames/01.jpg" alt=""></div>
-            <div class="card" style="--i:2"><img src="assets/frames/03.jpg" alt=""></div>
-            <div class="card" style="--i:4"><img src="assets/frames/05.jpg" alt=""></div>
-            <div class="card" style="--i:6"><img src="assets/frames/07.jpg" alt=""></div>
-            <div class="card" style="--i:8"><img src="assets/frames/09.jpg" alt=""></div>
+            <div class="card" style="--i:0"><img src="assets/ai-scenes/scene_01_truck_couch.png" alt="Truck and couch scene"></div>
+            <div class="card" style="--i:2"><img src="assets/ai-scenes/hero_scene_realistic_final.png" alt="Realistic moving truck and family scene"></div>
+            <div class="card" style="--i:4"><img src="assets/ai-scenes/hero_ref_02.png" alt="Moving truck and family move scene"></div>
+            <div class="card" style="--i:6"><img src="assets/ai-scenes/scene_04_furniture_moving.png" alt="Furniture moving scene"></div>
+            <div class="card" style="--i:8"><img src="assets/ai-scenes/scene_top_custom.png" alt="Previously uploaded custom scene"></div>
           </div>
           <div class="cube" style="--s:72px;--x:6%;--y:18%;--z:-40px;--lift:120px;--spin:48deg;--yaw:70deg;--c:#ff8a55;--c2:#9a3d18;--c3:#e25d28;--c4:#7a2f12;--c5:#ffc7a4"><i class="ft"></i><i class="bk"></i><i class="rt"></i><i class="lt"></i><i class="tp"></i><i class="bt"></i><b class="tape"></b></div>
           <div class="cube" style="--s:54px;--x:78%;--y:12%;--z:30px;--lift:160px;--spin:-30deg;--yaw:-50deg;--c:#d9b48a;--c2:#7a5330;--c3:#c49a6c;--c4:#5c3b22;--c5:#f0d8b8"><i class="ft"></i><i class="bk"></i><i class="rt"></i><i class="lt"></i><i class="tp"></i><i class="bt"></i></div>
@@ -452,7 +577,7 @@ html{scroll-behavior:auto}
 <main id="main">
   <div class="competition-banner reveal" aria-label="Brand promise">
     <div class="banner-glow"></div>
-    <div class="competition-text">"We beat competition by Price and Experience"</div>
+    <div class="competition-text" data-text='"We beat competition by Price and Experience"'></div>
   </div>
 
 <section class="scroll-quote-wrap" id="scroll-quote" aria-label="Quick quote CTA">
@@ -460,7 +585,7 @@ html{scroll-behavior:auto}
     <div class="quote-copy">
       <p class="eyebrow">05 / LET’S GET YOU THERE</p>
       <h2>Your next chapter<br>starts with<br><em>a hello.</em></h2>
-      <p>Tell Bruce what’s moving, where it’s going,<br>and when you’d like to get there.</p>
+      <p>Tell Bruce, the owner, what’s moving, where it’s going,<br>and when you’d like to get there.</p>
       <a class="big-phone" href="tel:+16147173969">614-717-3969 ↗</a>
     </div>
     <form id="quote-form" class="quote-card">
@@ -508,35 +633,138 @@ html{scroll-behavior:auto}
 <section class="explode-pin" id="film" aria-labelledby="film-title">    <div class="explode-sticky shell">
       
       <div class="film-stage" id="film-stage">
+        <div class="film-title-wrap" style="top:-42px;">
+          <h2>See how we move</h2>
+        </div>
         <div class="burst" id="burst">
-          <div class="slice" style="--sx:-420;--sy:-160;--sz:-180;--ry:-28;--rx:8"><img src="assets/frames/01.jpg" alt="Generated frame: sofa entering the truck"></div>
-          <div class="slice" style="--sx:-280;--sy:170;--sz:-80;--ry:-18;--rx:-6"><img src="assets/frames/02.jpg" alt="Generated moving frame"></div>
-          <div class="slice" style="--sx:360;--sy:-140;--sz:-120;--ry:22;--rx:10"><img src="assets/frames/03.jpg" alt="Generated moving frame"></div>
-          <div class="slice" style="--sx:-460;--sy:20;--sz:40;--ry:-32;--rx:4"><img src="assets/frames/04.jpg" alt="Generated moving frame"></div>
-          <div class="slice" style="--sx:430;--sy:90;--sz:20;--ry:26;--rx:-8"><img src="assets/frames/06.jpg" alt="Generated moving frame"></div>
-          <div class="slice" style="--sx:250;--sy:200;--sz:-160;--ry:16;--rx:12"><img src="assets/frames/07.jpg" alt="Generated moving frame"></div>
-          <div class="slice" style="--sx:-180;--sy:-220;--sz:90;--ry:-12;--rx:14"><img src="assets/frames/08.jpg" alt="Generated moving frame"></div>
-          <div class="slice" style="--sx:480;--sy:-40;--sz:-40;--ry:30;--rx:2"><img src="assets/frames/09.jpg" alt="Generated frame: boxes stacked in the truck"></div>
-          <div class="slice core">
-            <img src="assets/frames/05.jpg" alt="Exploded moving sequence still frame" />
+          <div class="slice" data-video="pMf4j7eYT3Q" style="--sx:-420;--sy:-160;--sz:-180;--ry:-28;--rx:8;--layer:1">
+            <img src="https://img.youtube.com/vi/pMf4j7eYT3Q/hqdefault.jpg" alt="OSU Entire Dorm Move! Part 1">
+            <button class="video-play" aria-label="Play video">▶</button>
           </div>
+          <div class="slice" data-video="NQUuX122trk" style="--sx:-280;--sy:170;--sz:-80;--ry:-18;--rx:-6;--layer:2">
+            <img src="https://img.youtube.com/vi/NQUuX122trk/hqdefault.jpg" alt="OSU Entire Dorm Move Part 2">
+            <button class="video-play" aria-label="Play video">▶</button>
+          </div>
+          <div class="slice" data-video="DzxRP4uo4SA" style="--sx:360;--sy:-140;--sz:-120;--ry:22;--rx:10;--layer:3">
+            <img src="https://img.youtube.com/vi/DzxRP4uo4SA/hqdefault.jpg" alt="Building an ENTIRE Multi Ring Gymnastics Event">
+            <button class="video-play" aria-label="Play video">▶</button>
+          </div>
+          <div class="slice" data-video="nKHPQCDAvgI" style="--sx:-460;--sy:20;--sz:40;--ry:-32;--rx:4;--layer:4">
+            <img src="https://img.youtube.com/vi/nKHPQCDAvgI/hqdefault.jpg" alt="Gymnastics Event Part 2 Unload">
+            <button class="video-play" aria-label="Play video">▶</button>
+          </div>
+          <div class="slice" data-video="m3OTMuKt96I" style="--sx:430;--sy:90;--sz:20;--ry:26;--rx:-8;--layer:5">
+            <img src="https://img.youtube.com/vi/m3OTMuKt96I/hqdefault.jpg" alt="House Property Clean-out / Eviction">
+            <button class="video-play" aria-label="Play video">▶</button>
+          </div>
+          <div class="slice" data-video="pWJZkn7KVR4" style="--sx:250;--sy:200;--sz:-160;--ry:16;--rx:12;--layer:6">
+            <img src="https://img.youtube.com/vi/pWJZkn7KVR4/hqdefault.jpg" alt="Moving thousands of pounds of high-end furniture">
+            <button class="video-play" aria-label="Play video">▶</button>
+          </div>
+          <div class="slice" data-video="VgGF0C_dKuQ" style="--sx:-180;--sy:-220;--sz:90;--ry:-12;--rx:14;--layer:7">
+            <img src="https://img.youtube.com/vi/VgGF0C_dKuQ/hqdefault.jpg" alt="Local move: $8,000 hand-crafted table">
+            <button class="video-play" aria-label="Play video">▶</button>
+          </div>
+          <div class="slice" data-video="gxufUY9yi-o" style="--sx:480;--sy:-40;--sz:-40;--ry:30;--rx:2;--layer:8">
+            <img src="https://img.youtube.com/vi/gxufUY9yi-o/hqdefault.jpg" alt="Lifting heavy weights & equipment at The Arnold">
+            <button class="video-play" aria-label="Play video">▶</button>
+          </div>
+          <div class="slice core" style="--layer:9">
+            <img src="assets/ai-scenes/scene_center_realistic2.png" alt="Exploded moving sequence still frame" />
+          </div>
+        </div>
+        <div class="film-zoom-controls" aria-label="Zoom controls for exploded film">
+          <button class="film-zoom-button" type="button" data-zoom="out" aria-label="Zoom out">−</button>
+          <button class="film-zoom-button" type="button" data-zoom="in" aria-label="Zoom in">＋</button>
         </div>
       </div>
       <p class="frame-note">Illustrative film frames, showing the move in motion.</p>
     </div>
   </section>
 
-  <section id="services" class="section shell">
+  <section id="services" class="section shell services-band mobile-hidden-section">
     <div class="section-heading reveal">
-      <div><p class="eyebrow">01 / MAKE YOUR MOVE</p><h2>A little help.<br>Or the whole move.</h2></div>
-      <p>Choose the support you need.<br>We’ll take it from there.</p>
+      <div>
+        <p class="eyebrow">01 / MAKE YOUR MOVE</p>
+        <h2>Need a hand?<br>Or the whole move.</h2>
+      </div>
+      <p>From a quick apartment move to a full clean-out, we shape the service around the job.</p>
     </div>
-    <div class="services">
-      <a class="service reveal" href="#quote"><span class="number">01 / LOCAL &amp; LONG DISTANCE</span><div class="service-icon">↗</div><h3>A new place.<br>A smooth start.</h3><p>Homes, apartments, student moves, and business relocations. In Columbus and beyond.</p><span class="service-link">Plan your move ↗</span></a>
-      <a class="service reveal" href="#quote"><span class="number">02 / MOVING LABOR</span><div class="service-icon">⇄</div><h3>You have the truck.<br>We bring the help.</h3><p>Loading, unloading, or rearranging heavy items. Get hands-on help where you need it.</p><span class="service-link">Find your crew ↗</span></a>
-      <a class="service reveal" href="#quote"><span class="number">03 / PACKING &amp; MORE</span><div class="service-icon">⊞</div><h3>All the details.<br>Taken care of.</h3><p>Packing, furniture disassembly and reassembly, moving supplies, and junk removal.</p><span class="service-link">Explore your options ↗</span></a>
+
+    <div class="service-carousel-shell reveal" aria-label="Service carousel">
+      <div class="service-carousel-viewport">
+        <div class="service-carousel-controls">
+          <button class="service-carousel-button service-carousel-prev" type="button" aria-label="Previous services">←</button>
+          <button class="service-carousel-button service-carousel-next" type="button" aria-label="Next services">→</button>
+        </div>
+        <div class="service-carousel-track" id="serviceCarouselTrack">
+          <article class="service-card">
+            <span class="service-tag">Local &amp; long distance</span>
+            <h3>Move-outs &amp; relocations</h3>
+            <p>Homes, apartments, student moves, office shifts, and residential relocations throughout Columbus and beyond.</p>
+            <a href="#quote" class="service-link">Plan your move ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Moving labor</span>
+            <h3>Labor-only help</h3>
+            <p>Loading, unloading, furniture positioning, heavy item lifting, and crew support when you already have the truck.</p>
+            <a href="#quote" class="service-link">Find your crew ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Eviction &amp; clean-out</span>
+            <h3>Property clean-outs</h3>
+            <p>Fast, respectful eviction clean-outs, junk removal, and post-tenant reset work that gets properties ready to move forward.</p>
+            <a href="#eviction" class="service-link">See eviction services ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Packing &amp; supplies</span>
+            <h3>Packing support</h3>
+            <p>Boxes, wrap, packing labor, and supplies to keep your move organized and efficient from start to finish.</p>
+            <a href="#quote" class="service-link">Get packing help ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Junk removal</span>
+            <h3>Junk removal &amp; hauling</h3>
+            <p>Responsible hauling and disposal for unwanted items, debris, and estate clear-outs. Hauling and recycling where possible.</p>
+            <a href="#quote" class="service-link">Arrange junk removal ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Event labor</span>
+            <h3>Event &amp; setup labor</h3>
+            <p>Team support for event setup, teardown, heavy lifting, and logistics — reliable crews that follow event schedules and direction.</p>
+            <a href="#quote" class="service-link">Book event labor ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Senior downsizing</span>
+            <h3>Senior downsizing help</h3>
+            <p>Compassionate, paced moving assistance for seniors — downsizing, packing, furniture moves, and careful handling of personal items.</p>
+            <a href="#quote" class="service-link">Ask about senior help ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Vehicle transport</span>
+            <h3>Vehicle transportation</h3>
+            <p>Short- and medium-distance vehicle transport options for cars, small trucks, and other vehicles as part of a move package.</p>
+            <a href="#quote" class="service-link">Inquire about transport ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-tag">Move insurance</span>
+            <h3>Move protection &amp; insurance</h3>
+            <p>Information on available move protection options and recommended next steps to secure coverage for valuable or fragile items.</p>
+            <a href="#quote" class="service-link">Learn about coverage ↗</a>
+          </article>
+        </div>
+      </div>
+      <div class="service-carousel-dots" id="serviceCarouselDots" aria-label="Service carousel pagination"></div>
     </div>
-    <div class="extra-services"><span>Also here for:</span> Senior downsizing · Home staging · Event labor · Donations · Vehicle transportation <a href="https://movinghelpcolumbusohio.com/eviction-services" target="_blank" rel="noopener">Specialized services ↗</a></div>
+
   </section>
 
   <section id="pricing" class="pricing section">
@@ -550,19 +778,29 @@ html{scroll-behavior:auto}
           <div class="price-top"><span>THE QUICK MOVE</span><b>2 hours</b></div>
           <div class="price">$350<span>/ local package</span></div>
           <p>For a smaller move or a focused helping hand.</p>
+          <div class="promo-badge">$50 off when you book today</div>
           <ul><li>2 movers + 26-foot box truck</li><li>Local move, 20-mile maximum</li><li>Dolly + 12 moving blankets</li><li>Fuel and tax included</li></ul>
+          <p class="card-discount-note">* Same day service available</p>
+          <p class="card-discount-note">* Seniors, first responders, teachers, military, and law enforcement — Get specialized discounts</p>
           <a class="button dark" href="sms:+16147173969">Ask about the 2-hour move ↗</a>
         </article>
         <article class="price-card featured reveal">
           <div class="price-top"><span>MORE TIME TO MOVE</span><b>4 hours</b></div>
           <div class="price">$650<span>/ local package</span></div>
           <p>More time for the belongings that make it home.</p>
+          <div class="promo-badge">$50 off when you book today</div>
           <ul><li>2 movers + 26-foot box truck</li><li>Local move, 20-mile maximum</li><li>Dolly + 12 moving blankets</li><li>Fuel and tax included</li></ul>
+          <p class="card-discount-note">* Same day service available</p>
+          <p class="card-discount-note">* Seniors, first responders, teachers, military, and law enforcement — Get specialized discounts</p>
           <a class="button orange" href="sms:+16147173969">Ask about the 4-hour move ↗</a>
         </article>
       </div>
-      <p class="price-note">Prices reflect the original website as reviewed September 24, 2026 and include its advertised $50 discount. Additional time or items may cost extra; some services require a deposit. Confirm all pricing and terms before booking.</p>
-      <div class="discount"><strong>A little extra support.</strong><span>Ask about discounts for seniors, first responders, teachers, military, and law enforcement.</span></div>
+      <div class="promo-strip reveal">
+        <span>Get paid up to $100 per referral</span>
+        <span>Refer a friend, family member, or neighbor and we’ll take care of the next move.</span>
+      </div>
+      <p class="price-note">Prices reflect the original website as reviewed September 24, 2026 and include the advertised $50 discount for same-day bookings. Additional time or items may cost extra; some services require a deposit. Confirm all pricing and terms before booking.</p>
+      <div class="discount"><strong>A little extra support.</strong><span>Ask about discounts for seniors, first responders, teachers, military, and law enforcement — Get specialized discounts.</span></div>
     </div>
   </section>
 
@@ -639,92 +877,6 @@ html{scroll-behavior:auto}
     </div>
   </section>
 
-  <!-- Primary Services overview inserted: lists core offerings and quick links -->
-  <section class="section shell services" id="services-overview">
-    <div>
-      <p class="eyebrow">OUR SERVICES</p>
-      <h2>Full moving, eviction &amp; clean-out services — everything in one place</h2>
-      <p class="lede">We offer a complete range of moving and property services: local and long-distance moves, eviction clean-outs, junk removal, packing, labor-only help, truck loading, and move insurance options. Choose the service that fits your needs and get a clear, upfront quote.</p>
-      <div class="services" aria-label="Services list">
-        <div class="service">
-          <div class="number">Eviction &amp; Clean-outs</div>
-          <div class="service-icon">🏠</div>
-          <h3>Eviction clean-outs</h3>
-          <p>Full-property removal after evictions, compassionate handling, and responsible disposal. We work quickly to prepare properties for re-rental.</p>
-          <a class="service-link" href="#eviction">Learn more ↗</a>
-        </div>
-        <div class="service">
-          <div class="number">Move-outs</div>
-          <div class="service-icon">📦</div>
-          <h3>Move-outs &amp; residential moves</h3>                    <p>Local and long-distance moves with trained crews, packing help, and optional truck service.</p>
-          <a class="service-link" href="#film">Get a quote ↗</a>
-        </div>
-        <div class="service">
-          <div class="number">Junk Removal</div>
-          <div class="service-icon">🗑️</div>
-          <h3>Junk removal &amp; haul-away</h3>
-          <p>Single-item pickups to full-property clean-outs with sustainable disposal practices.</p>
-          <a class="service-link" href="#quote">Book pickup ↗</a>
-        </div>
-        <div class="service">
-          <div class="number">Labor</div>
-          <div class="service-icon">💪</div>
-          <h3>Hourly labor &amp; loading</h3>
-          <p>Labor-only crews for loading/unloading, furniture moving, rearranging, and heavy lifting.</p>
-          <a class="service-link" href="#quote">Schedule help ↗</a>
-        </div>
-        <div class="service">
-          <div class="number">Insurance</div>
-          <div class="service-icon">🛡️</div>
-          <h3>Move insurance &amp; valuation</h3>
-          <p>Optional move insurance and straightforward valuation options to protect your belongings during transit.</p>
-          <a class="service-link" href="#quote">Request details ↗</a>
-        </div>
-        <div class="service">
-          <div class="number">Extras</div>
-          <div class="service-icon">🔧</div>
-          <h3>Packing, supplies &amp; storage</h3>
-          <p>Packing assistance, moving supplies, short-term storage coordination, and post-move clean-up.</p>
-          <a class="service-link" href="#about">See options ↗</a>
-        </div>
-      </div>
-      <p class="extra-services">Need something not listed? <a href="tel:+16147173969">Call Bruce at 614-717-3969</a> for a free consultation and same-day availability questions.</p>
-    </div>
-  </section>
-
-  <!-- Eviction & Clean-out summary inserted from user content -->
-  <section class="section shell services" id="eviction">
-    <div>
-      <p class="eyebrow">Eviction &amp; Clean-out</p>
-      <h2>Fast, reliable eviction clean-outs — we handle it all.</h2>
-      <p class="lede">Whether you’re filing with Franklin County Municipal Court or need a professional clean-out after an eviction, our team makes the process simple and stress-free. Call Bruce for a free consult: <a href="tel:+16147173969">614-717-3969</a>.</p>
-      <div class="service-grid">
-        <div class="service-card">
-          <img src="https://img1.wsimg.com/isteam/ip/3a4c2667-59c2-462c-96d2-968a66832df5/20240401_100813-389b784.jpg/:/cr=t:31.25%25,l:0%25,w:100%25,h:37.5%25/rs=w:388,h:194,cg:true" alt="Eviction property clean-out">
-          <h3>Full-property clean-outs</h3>
-          <p>Fast removal of unwanted items left behind by tenants — from single rooms to whole properties. We sort, haul, and dispose responsibly.</p>
-        </div>
-        <div class="service-card">
-          <img src="https://img1.wsimg.com/isteam/ip/3a4c2667-59c2-462c-96d2-968a66832df5/ols/16_original/:/cr=t:33.6%25,l:0%25,w:100%25,h:32.79%25/rs=w:388,h:194,cg:true" alt="Truck removal">
-          <h3>Same-day or next-day pickup</h3>
-          <p>Book early (before 12pm) for same-day pickup when available. We offer transparent pricing and clear scheduling so you know what to expect.</p>
-        </div>
-        <div class="service-card">
-          <img src="https://img1.wsimg.com/isteam/ip/3a4c2667-59c2-462c-96d2-968a66832df5/movers.jpg/:/rs=w:388,h:194,cg:true,m/cr=w:388,h:194" alt="Eviction movers">
-          <h3>Experienced crews</h3>
-          <p>Trained teams handle heavy lifting, fragile items, and tight spaces — stairs, multi-family buildings, and more.</p>
-        </div>
-      </div>
-      <ul class="service-highlights">
-        <li>Upfront pricing and transparent fees</li>
-        <li>Booking available for same-day or next-day service</li>
-        <li>Responsible disposal and recycling where possible</li>
-        <li>Service areas: Franklin, Delaware, Pickaway, Fairfield counties and surrounding neighborhoods</li>
-      </ul>
-      <p class="cta">Ready to book? <a class="button" href="#quote">Plan an eviction clean-out</a> or <a href="tel:+16147173969">call Bruce at 614-717-3969</a>.</p>
-    </div>
-  </section>
-
   <section class="section shell faq" id="questions">
     <div>
       <p class="eyebrow">04 / BEFORE MOVING DAY</p>
@@ -760,6 +912,43 @@ html{scroll-behavior:auto}
 </footer>
 <div class="mobile-dock"><a href="tel:+16147173969">Call Bruce</a><a href="#quote">Plan my move ↗</a></div>
 
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-panel" aria-live="polite">
+    <div class="chat-header">
+      <div class="chat-brand">
+        <div class="chat-logo">MH</div>
+        <div>
+          <strong>Moving Help AI</strong>
+          <small>Ask about services</small>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="chat-reset" type="button" aria-label="Reset chat">Reset</button>
+        <button class="chat-close" type="button" aria-label="Close chat">×</button>
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message assistant">Hi! I can help with moving services, eviction cleanup, local and long-distance moves, and how to contact Bruce.</div>
+    </div>
+    <div class="chat-suggestions" id="chatSuggestions" aria-label="Suggested questions">
+      <button type="button" class="suggestion-pill">Who is the contact?</button>
+      <button type="button" class="suggestion-pill">What services do you offer?</button>
+      <button type="button" class="suggestion-pill">How much is a move?</button>
+      <button type="button" class="suggestion-pill">Do you handle evictions?</button>
+    </div>
+    <form class="chat-form" id="chatForm">
+      <input id="chatInput" type="text" maxlength="300" placeholder="Ask about pricing, services, or contact info…" aria-label="Message the business assistant" />
+      <button type="submit" aria-label="Send message">Send</button>
+    </form>
+  </div>
+  <div class="chat-toggle-wrap">
+    <button class="chat-toggle" type="button" aria-expanded="false" aria-label="Open business assistant">
+      <img src="robot-head.png" alt="AI assistant" class="chat-button-image" />
+      <span class="mini-dot" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+ 
 <script>
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const root=document.documentElement;
@@ -925,45 +1114,400 @@ document.addEventListener('DOMContentLoaded', () => {
   if(film) {
     const filmObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && !hasExploded && !reduced.matches) {
-          hasExploded = true;
+        if (entry.isIntersecting && !reduced.matches) {
           let start = null;
           function animateExplode(timestamp) {
             if (!start) start = timestamp;
-            let progress = (timestamp - start) / 1800; // 1.8s
+            let progress = (timestamp - start) / 1800;
             if (progress > 1) progress = 1;
             let ease = 1 - Math.pow(1 - progress, 3);
             root.style.setProperty('--explode', ease.toFixed(4));
             if (progress < 1) {
               requestAnimationFrame(animateExplode);
             } else {
-              setTimeout(() => {
-                const nextSec = document.querySelector('#services');
-                if(nextSec) {
-                  const y = nextSec.getBoundingClientRect().top + window.scrollY - 80;
-                  window.scrollTo({top: y, behavior: 'smooth'});
-                }
-              }, 800);
+              // enable interactive rotation once the explode animation completes
+              if (typeof enableBurstInteraction === 'function') enableBurstInteraction();
             }
           }
+          root.style.setProperty('--explode', 0);
           requestAnimationFrame(animateExplode);
         } else if (entry.isIntersecting && reduced.matches) {
            root.style.setProperty('--explode', 1);
+          if (typeof enableBurstInteraction === 'function') enableBurstInteraction();
         }
       });
     }, { threshold: 0.1 });
     filmObserver.observe(film);
+
+   // Interactive rotation after explosion
+   const burst = document.getElementById('burst');
+   const zoomButtons = document.querySelectorAll('.film-zoom-button');
+   let burstInteractive = false;
+   let dragging = false;
+   let startX = 0, startY = 0, startRotX = 0, startRotY = 0;
+   let rotX = 0, rotY = 0;
+   let burstScale = 1;
+
+   const clampVal = (v, a, b) => Math.max(a, Math.min(b, v));
+
+   function updateBurstRotation() {
+     document.documentElement.style.setProperty('--rotateX', rotX + 'deg');
+     document.documentElement.style.setProperty('--rotateY', rotY + 'deg');
+     if (burst) {
+       burst.style.setProperty('--burst-scale', burstScale.toFixed(3));
+     }
+   }
+
+   function onPointerMove(e) {
+     if (!dragging) return;
+     const clientX = (e.clientX !== undefined) ? e.clientX : (e.touches && e.touches[0] && e.touches[0].clientX);
+     const clientY = (e.clientY !== undefined) ? e.clientY : (e.touches && e.touches[0] && e.touches[0].clientY);
+     const dx = clientX - startX;
+     const dy = clientY - startY;
+     rotY = startRotY + dx * 0.25;
+     rotX = clampVal(startRotX + dy * 0.18, -45, 45);
+     updateBurstRotation();
+   }
+
+   function updateHoverFromPointer(e) {
+     if (!burst) return;
+     const rect = burst.getBoundingClientRect();
+     const dx = e.clientX - (rect.left + rect.width / 2);
+     const dy = e.clientY - (rect.top + rect.height / 2);
+     const moveX = (dx / Math.max(rect.width * 0.5, 1)) * 18;
+     const moveY = (dy / Math.max(rect.height * 0.5, 1)) * 18;
+     burst.style.setProperty('--hoverX', `${moveX.toFixed(2)}px`);
+     burst.style.setProperty('--hoverY', `${moveY.toFixed(2)}px`);
+   }
+
+   function onPointerUp() {
+     dragging = false;
+     document.documentElement.classList.remove('burst-dragging');
+     window.removeEventListener('pointermove', onPointerMove);
+     window.removeEventListener('pointerup', onPointerUp);
+   }
+
+   if (burst) {
+     burst.style.touchAction = 'none';
+     burst.addEventListener('pointermove', updateHoverFromPointer);
+     burst.addEventListener('pointerleave', () => {
+       burst.style.setProperty('--hoverX', '0px');
+       burst.style.setProperty('--hoverY', '0px');
+     });
+     burst.addEventListener('pointerdown', (ev) => {
+       if (!burstInteractive) return;
+       dragging = true;
+       startX = ev.clientX;
+       startY = ev.clientY;
+       startRotX = rotX;
+       startRotY = rotY;
+       document.documentElement.classList.add('burst-dragging');
+       window.addEventListener('pointermove', onPointerMove);
+       window.addEventListener('pointerup', onPointerUp);
+     });
+   }
+
+   zoomButtons.forEach((button) => {
+     button.addEventListener('click', () => {
+       const direction = button.dataset.zoom === 'in' ? 1 : -1;
+       burstScale = clampVal(burstScale + direction * 0.12, 0.8, 1.6);
+       updateBurstRotation();
+     });
+   });
+
+   // Expose a function to enable interaction when explosion finishes
+   function enableBurstInteraction() {
+     burstInteractive = true;
+     if (burst) burst.classList.add('interactive');
+     document.documentElement.style.setProperty('--rotateX','0deg');
+     document.documentElement.style.setProperty('--rotateY','0deg');
+   }
   }
   const banner = document.querySelector('.competition-banner');
-  if (banner) {
-    const bannerObserver = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        entries[0].target.classList.add('visible');
-        bannerObserver.disconnect();
+  const bannerText = document.querySelector('.competition-text');
+  if (bannerText && bannerText.dataset.text) {
+    const fullText = bannerText.dataset.text;
+    bannerText.textContent = '';
+    let index = 0;
+    const typeText = () => {
+      if (index <= fullText.length) {
+        bannerText.textContent = fullText.slice(0, index);
+        index += 1;
+        const delay = index === fullText.length ? 1200 : 50;
+        setTimeout(typeText, delay);
       }
-    }, { threshold: 0.3 });
-    bannerObserver.observe(banner);
+    };
+    if (banner) {
+      const bannerObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          entries[0].target.classList.add('visible');
+          bannerObserver.disconnect();
+          typeText();
+        }
+      }, { threshold: 0.3 });
+      bannerObserver.observe(banner);
+    } else {
+      typeText();
+    }
   }
+
+  const serviceMetaTrack = document.getElementById('serviceMetaTrack');
+  const serviceMetaButtons = document.querySelectorAll('.service-meta-button');
+  if (serviceMetaTrack && serviceMetaButtons.length) {
+    const viewport = serviceMetaTrack.parentElement;
+    const items = Array.from(serviceMetaTrack.children);
+
+    const getItemWidth = () => {
+      if (!items.length) return 120;
+      const w = items[0].getBoundingClientRect().width;
+      return (w && !Number.isNaN(w)) ? Math.round(w) : 120;
+    };
+
+    const scrollByAmount = () => Math.max(viewport.clientWidth * 0.7, getItemWidth() * 2);
+
+    serviceMetaButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const dir = button.dataset.direction === 'next' ? 1 : -1;
+        viewport.scrollBy({ left: dir * scrollByAmount(), behavior: 'smooth' });
+      });
+    });
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        viewport.scrollLeft = 0;
+      }, 120);
+    });
+
+    serviceMetaTrack.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') viewport.scrollBy({ left: scrollByAmount(), behavior: 'smooth' });
+      if (e.key === 'ArrowLeft') viewport.scrollBy({ left: -scrollByAmount(), behavior: 'smooth' });
+    });
+
+    items.forEach(item => item.setAttribute('tabindex', '0'));
+  }
+
+  const serviceCarouselTrack = document.getElementById('serviceCarouselTrack');
+  const serviceCarouselPrev = document.querySelector('.service-carousel-prev');
+  const serviceCarouselNext = document.querySelector('.service-carousel-next');
+  const serviceCarouselDotsContainer = document.getElementById('serviceCarouselDots');
+
+  if (serviceCarouselTrack && serviceCarouselPrev && serviceCarouselNext) {
+    const cards = Array.from(serviceCarouselTrack.children);
+    const viewport = serviceCarouselTrack.parentElement;
+    const cardGap = 22;
+    const visibleCards = () => {
+      const width = viewport.clientWidth;
+      if (width < 700) return 1;
+      if (width < 980) return 2;
+      if (width < 1200) return 3;
+      return 4;
+    };
+
+    let index = 0;
+
+    function getMaxIndex() {
+      return Math.max(0, cards.length - visibleCards());
+    }
+
+    function renderDots() {
+      if (!serviceCarouselDotsContainer) return;
+      serviceCarouselDotsContainer.innerHTML = '';
+      const totalDots = Math.max(1, getMaxIndex() + 1);
+      for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        if (i === index) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+          index = Math.min(i, getMaxIndex());
+          updateCarousel();
+        });
+        serviceCarouselDotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateCarousel() {
+      const maxIndexValue = getMaxIndex();
+      index = Math.min(index, maxIndexValue);
+      const cardWidth = cards[0].getBoundingClientRect().width + cardGap;
+      const offset = index * cardWidth;
+      serviceCarouselTrack.style.transform = `translateX(-${offset}px)`;
+
+      if (serviceCarouselDotsContainer) {
+        const dots = Array.from(serviceCarouselDotsContainer.children);
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+      }
+    }
+
+    serviceCarouselPrev.addEventListener('click', () => {
+      index = Math.max(0, index - 1);
+      renderDots();
+      updateCarousel();
+    });
+
+    serviceCarouselNext.addEventListener('click', () => {
+      index = Math.min(getMaxIndex(), index + 1);
+      renderDots();
+      updateCarousel();
+    });
+
+    window.addEventListener('resize', () => {
+      renderDots();
+      updateCarousel();
+    });
+
+    renderDots();
+    updateCarousel();
+  }
+
+  const chatWidget = document.getElementById('chatWidget');
+  const chatToggle = document.querySelector('.chat-toggle');
+  const chatClose = document.querySelector('.chat-close');
+  const chatReset = document.querySelector('.chat-reset');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatSuggestions = document.getElementById('chatSuggestions');
+
+  const defaultMessages = [
+    'Hi! I can answer questions about Moving Help Columbus Ohio using the local business context file.',
+    'Ask me about services, contact info, pricing, evictions, or scheduling.'
+  ];
+
+  const renderChat = (messages) => {
+    chatMessages.innerHTML = '';
+    messages.forEach((item) => {
+      const el = document.createElement('div');
+      el.className = `message ${item.role}`;
+      el.textContent = item.text;
+      chatMessages.appendChild(el);
+    });
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  };
+
+  const resetChat = () => {
+    renderChat(defaultMessages.map((text) => ({ role: 'assistant', text })));
+  };
+
+  const addMessage = (text, role = 'assistant') => {
+    const el = document.createElement('div');
+    el.className = `message ${role}`;
+    el.textContent = text;
+    chatMessages.appendChild(el);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  };
+
+  const getAssistantBaseUrl = () => {
+    const hostname = window.location.hostname || '';
+    if (!hostname || hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://127.0.0.1:8789';
+    }
+    const originHost = hostname.replace(/^www\./i, '');
+    return `https://chat.${originHost}`;
+  };
+
+  const askLLM = async (question) => {
+    try {
+      const params = new URLSearchParams({ question });
+      const baseUrl = getAssistantBaseUrl();
+      const response = await fetch(`${baseUrl}/api/chat?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error('Unable to reach assistant service');
+      }
+      const payload = await response.json();
+      return payload.answer || 'I could not find an answer in the business context file.';
+    } catch (error) {
+      return 'I could not reach the AI assistant. Make sure the public chat tunnel is running and the local Ollama service is available.';
+    }
+  };
+
+  const toggleChat = () => {
+    const open = chatWidget.classList.toggle('open');
+    chatToggle.setAttribute('aria-expanded', String(open));
+    if (open) {
+      setTimeout(() => chatInput.focus(), 70);
+    }
+  };
+
+  chatToggle.addEventListener('click', toggleChat);
+  chatClose.addEventListener('click', () => {
+    chatWidget.classList.remove('open');
+    chatToggle.setAttribute('aria-expanded', 'false');
+  });
+  chatReset.addEventListener('click', () => {
+    resetChat();
+    chatInput.focus();
+  });
+
+  chatSuggestions.addEventListener('click', (event) => {
+    const target = event.target.closest('.suggestion-pill');
+    if (!target) return;
+    const text = target.textContent.trim();
+    chatInput.value = text;
+    chatInput.focus();
+    chatForm.requestSubmit();
+  });
+
+  chatForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const question = chatInput.value.trim();
+    if (!question) return;
+    addMessage(question, 'user');
+    chatInput.value = '';
+    addMessage('Thinking…', 'assistant');
+    const answer = await askLLM(question);
+    const lastMessage = chatMessages.querySelector('.message.assistant:last-child');
+    if (lastMessage && lastMessage.textContent === 'Thinking…') {
+      lastMessage.textContent = answer;
+    } else {
+      addMessage(answer, 'assistant');
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && chatWidget.classList.contains('open')) {
+      chatWidget.classList.remove('open');
+      chatToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  resetChat();
+
+  // --- Video modal player for hero frames ---
+  (function(){
+    const videoModal = document.createElement('div');
+    videoModal.id = 'videoModal';
+    videoModal.className = 'video-modal';
+    videoModal.innerHTML = '<div class="video-modal-backdrop"></div><div class="video-modal-content" role="dialog" aria-modal="true"><button class="video-modal-close" aria-label="Close video">✕</button><div class="video-frame"></div></div>';
+    document.body.appendChild(videoModal);
+    const frameBox = videoModal.querySelector('.video-frame');
+    function openVideo(id){
+      frameBox.innerHTML = '<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%"></iframe>';
+      videoModal.classList.add('open');
+    }
+    function closeVideo(){
+      frameBox.innerHTML = '';
+      videoModal.classList.remove('open');
+    }
+    videoModal.querySelector('.video-modal-close').addEventListener('click', closeVideo);
+    videoModal.querySelector('.video-modal-backdrop').addEventListener('click', closeVideo);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && videoModal.classList.contains('open')) closeVideo();});
+    document.querySelectorAll('.slice[data-video]').forEach(s=>{
+      const button = s.querySelector('.video-play');
+      const openHandler = (event) => {
+        if (event && event.target && event.target.closest('.video-play')) {
+          event.stopPropagation();
+        }
+        const id = s.dataset.video;
+        if (id) openVideo(id);
+      };
+      s.addEventListener('click', openHandler);
+      if (button) button.addEventListener('click', openHandler);
+    });
+  })();
+
 </script>
 </body>
 </html>

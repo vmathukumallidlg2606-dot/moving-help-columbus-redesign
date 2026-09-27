@@ -1,0 +1,11 @@
+tunnel: <your-tunnel-id>
+credentials-file: C:\Users\mvsla\.cloudflared\<your-tunnel-id>.json
+
+ingress:
+  - hostname: ColumbusMovingCo.com
+    service: http://127.0.0.1:8788
+  - hostname: www.ColumbusMovingCo.com
+    service: http://127.0.0.1:8788
+  - hostname: chat.ColumbusMovingCo.com
+    service: http://127.0.0.1:8789
+  - service: http_status:404
