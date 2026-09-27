@@ -518,7 +518,7 @@ html{scroll-behavior:auto}
 <section class="hero-pin" id="hero" aria-label="Introduction">
   <div class="hero-sticky">
     <header class="top shell">
-      <a class="brand" href="#main"><img src="assets/moving_company_logo.jpg" alt="Moving Help Columbus Ohio Logo" style="height: 60px; width: auto; border-radius: 8px;"></a>
+      <a class="brand" href="#hero"><img src="assets/moving_company_logo.jpg" alt="Moving Help Columbus Ohio Logo" style="height: 60px; width: auto; border-radius: 8px;"></a>
       <nav aria-label="Main navigation">
         <a href="#film">The film</a>
         <a href="#services">Services</a>
@@ -1061,6 +1061,38 @@ html{scroll-behavior:auto}
 </div>
  
 <script>
+// Always start from the absolute top on open/refresh
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+function ensureTopOnOpen() {
+  const hash = window.location.hash;
+  if (!hash || hash === '#main' || hash === '#hero' || hash === '#top') {
+    if (hash === '#main' || hash === '#hero') {
+      try {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      } catch (e) {}
+    }
+    window.scrollTo(0, 0);
+  }
+}
+ensureTopOnOpen();
+window.addEventListener('DOMContentLoaded', ensureTopOnOpen);
+window.addEventListener('load', ensureTopOnOpen);
+window.addEventListener('pageshow', ensureTopOnOpen);
+
+document.querySelectorAll('a.brand').forEach(brand => {
+  brand.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (window.location.hash) {
+      try {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      } catch (err) {}
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  });
+});
+
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const root=document.documentElement;
 const menu=document.querySelector('.menu');
