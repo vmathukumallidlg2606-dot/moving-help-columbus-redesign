@@ -131,17 +131,18 @@ transition:box-shadow .3s}
 .explode-heading{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:12px;position:relative;z-index:4}
 .explode-heading h2{font-size:clamp(34px,4vw,56px);line-height:1.05;letter-spacing:-2px;margin:0}
 .explode-heading p{margin:0;color:var(--muted);max-width:360px}
-.film-stage{position:relative;height:min(64vh,580px);perspective:1600px;touch-action:none;cursor:grab}
+.film-stage{position:relative;height:min(64vh,580px);perspective:1600px;touch-action:pan-y;cursor:grab}
 .burst-dragging, .burst-dragging .film-stage{cursor:grabbing !important}
-.burst{position:absolute;inset:0;transform-style:preserve-3d;transform:translate3d(var(--hoverX, 0px), var(--hoverY, 0px), 0) scale(var(--burst-scale, 1)) rotateX(calc(8deg + var(--rotateX, 0deg))) rotateY(calc(-18deg + var(--explode)*22deg + var(--rotateY, 0deg)));pointer-events:none}
+.burst{position:absolute;inset:0;transform-style:preserve-3d;transform:translate3d(var(--hoverX, 0px), var(--hoverY, 0px), 0) scale(var(--burst-scale, 1)) rotateX(calc(8deg + var(--rotateX, 0deg))) rotateY(calc(-18deg + var(--explode)*22deg + var(--rotateY, 0deg)));pointer-events:none;touch-action:pan-y}
 .film-zoom-controls{position:absolute;right:18px;bottom:18px;display:flex;gap:8px;z-index:20;pointer-events:auto}
 .film-zoom-button{width:38px;height:38px;border:0;border-radius:12px;background:linear-gradient(135deg, rgba(255,255,255,.94), rgba(239,233,228,.9));color:var(--ink);font-size:22px;line-height:1;cursor:pointer;box-shadow:0 10px 18px rgba(16,33,55,.12), inset 0 1px 0 rgba(255,255,255,.7);display:grid;place-items:center;padding:0;pointer-events:auto}
 .film-zoom-button:hover{transform:translateY(-1px)}
 .burst.interactive{cursor:grab}
-.slice{position:absolute;width:min(24%,220px);aspect-ratio:16/9;left:50%;top:52%;margin-left:-12%;margin-top:-7%;border-radius:14px;overflow:hidden;box-shadow:0 18px 34px #10213718;background:#111;pointer-events:auto;cursor:pointer;z-index:var(--layer,2);
+.slice{position:absolute;width:min(24%,220px);aspect-ratio:16/9;left:50%;top:52%;margin-left:-12%;margin-top:-7%;border-radius:14px;overflow:hidden;box-shadow:0 18px 34px #10213718;background:#111;pointer-events:auto;cursor:pointer;z-index:var(--layer,2);touch-action:pan-y;
 transform:translate3d(calc(var(--sx)*var(--explode)*0.9px),calc(var(--sy)*var(--explode)*0.8px),calc(var(--sz)*var(--explode)*0.7px)) rotateY(calc(var(--ry)*var(--explode)*0.8deg)) rotateX(calc(var(--rx)*var(--explode)*0.8deg));transition:box-shadow .2s, border-color .2s}
 .slice:hover{z-index:60 !important;box-shadow:0 24px 48px rgba(16,33,55,.35);border:1px solid #ff743d}
 .slice img{pointer-events:none;width:100%;height:100%;object-fit:cover;display:block}
+.slice-caption{position:absolute;bottom:0;left:0;right:0;padding:12px 14px 10px;background:linear-gradient(transparent,rgba(11,21,36,0.92));color:#fff;font-size:13px;font-weight:700;line-height:1.3;pointer-events:none;border-bottom-left-radius:14px;border-bottom-right-radius:14px;letter-spacing:-0.2px}
 .slice .video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.9));display:grid;place-items:center;box-shadow:0 8px 20px rgba(16,33,55,.12);font-size:22px;color:var(--ink);border:0;cursor:pointer;opacity:0.96;pointer-events:auto;z-index:10;transition:transform .2s, box-shadow .2s}
 .slice:hover .video-play{transform:translate(-50%,-50%) scale(1.12);box-shadow:0 12px 28px rgba(255,116,61,.45)}
 .slice .video-play:before{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,116,61,0.12),rgba(255,116,61,0));}
@@ -356,9 +357,10 @@ h1{font-size:clamp(44px,11vw,64px);letter-spacing:-2.4px}
 .card{inset:12% 10%}
 .hero-caption{display:none}
 .scroll-hint{position:relative;bottom:auto;padding:0 0 18px}
-.slice,.slice.core{position:relative;left:auto;top:auto;margin:0 auto 12px;width:100%;transform:none!important}
-.film-stage{height:auto;perspective:none}
-.burst{position:relative;transform:none}
+.slice,.slice.core{position:relative;left:auto;top:auto;margin:0 auto 16px;width:100%;transform:none!important;touch-action:pan-y !important}
+.film-stage{height:auto;perspective:none;touch-action:pan-y !important;cursor:default}
+.burst{position:relative;transform:none;touch-action:pan-y !important}
+.film-zoom-controls{display:none !important}
 .explode-sticky{padding-top:48px}
 .move-story{height:190vh;min-height:1050px}
 .move-sticky{top:12px}
@@ -652,37 +654,46 @@ html{scroll-behavior:auto}
           <div class="slice" data-video="pMf4j7eYT3Q" style="--sx:-420;--sy:-160;--sz:-180;--ry:-28;--rx:8;--layer:1">
             <img src="https://img.youtube.com/vi/pMf4j7eYT3Q/hqdefault.jpg" alt="OSU Entire Dorm Move! Part 1">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">OSU Entire Dorm Move! Part 1</span>
           </div>
           <div class="slice" data-video="NQUuX122trk" style="--sx:-280;--sy:170;--sz:-80;--ry:-18;--rx:-6;--layer:2">
             <img src="https://img.youtube.com/vi/NQUuX122trk/hqdefault.jpg" alt="OSU Entire Dorm Move Part 2">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">OSU Entire Dorm Move Part 2</span>
           </div>
           <div class="slice" data-video="DzxRP4uo4SA" style="--sx:360;--sy:-140;--sz:-120;--ry:22;--rx:10;--layer:3">
             <img src="https://img.youtube.com/vi/DzxRP4uo4SA/hqdefault.jpg" alt="Building an ENTIRE Multi Ring Gymnastics Event">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">Building Multi Ring Gymnastics Event</span>
           </div>
           <div class="slice" data-video="nKHPQCDAvgI" style="--sx:-460;--sy:20;--sz:40;--ry:-32;--rx:4;--layer:4">
             <img src="https://img.youtube.com/vi/nKHPQCDAvgI/hqdefault.jpg" alt="Gymnastics Event Part 2 Unload">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">Gymnastics Event Part 2 Unload</span>
           </div>
           <div class="slice" data-video="m3OTMuKt96I" style="--sx:430;--sy:90;--sz:20;--ry:26;--rx:-8;--layer:5">
             <img src="https://img.youtube.com/vi/m3OTMuKt96I/hqdefault.jpg" alt="House Property Clean-out / Eviction">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">House / Property Clean-out &amp; Eviction</span>
           </div>
           <div class="slice" data-video="pWJZkn7KVR4" style="--sx:250;--sy:200;--sz:-160;--ry:16;--rx:12;--layer:6">
             <img src="https://img.youtube.com/vi/pWJZkn7KVR4/hqdefault.jpg" alt="Moving thousands of pounds of high-end furniture">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">Moving 1,000's of Lbs of Furniture</span>
           </div>
           <div class="slice" data-video="VgGF0C_dKuQ" style="--sx:-180;--sy:-220;--sz:90;--ry:-12;--rx:14;--layer:7">
             <img src="https://img.youtube.com/vi/VgGF0C_dKuQ/hqdefault.jpg" alt="Local move: $8,000 hand-crafted table">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">Local Move: $8,000 Handcrafted Table</span>
           </div>
           <div class="slice" data-video="gxufUY9yi-o" style="--sx:480;--sy:-40;--sz:-40;--ry:30;--rx:2;--layer:8">
             <img src="https://img.youtube.com/vi/gxufUY9yi-o/hqdefault.jpg" alt="Lifting heavy weights & equipment at The Arnold">
             <button class="video-play" aria-label="Play video">▶</button>
+            <span class="slice-caption">Lifting Equipment at The Arnold</span>
           </div>
           <div class="slice core" style="--layer:9">
             <img src="assets/real-photos/arnold_sports_festival.jpg" alt="Real job: Lifting equipment at The Arnold Sports Festival" />
+            <span class="slice-caption">★ Real Crew at The Arnold Sports Festival</span>
           </div>
         </div>
         <div class="film-zoom-controls" aria-label="Zoom controls for exploded film">
@@ -1312,7 +1323,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
    const filmStage = document.getElementById('film-stage');
    if (filmStage) {
-     filmStage.style.touchAction = 'none';
+     filmStage.style.touchAction = 'pan-y';
      filmStage.addEventListener('pointermove', updateHoverFromPointer);
      filmStage.addEventListener('pointerleave', () => {
        if (burst) {
@@ -1322,6 +1333,7 @@ document.addEventListener('DOMContentLoaded', () => {
      });
      filmStage.addEventListener('pointerdown', (ev) => {
        if (!burstInteractive) return;
+       if (ev.pointerType === 'touch' || window.matchMedia('(max-width: 700px)').matches) return;
        if (ev.target.closest('.slice[data-video]') || ev.target.closest('.film-zoom-button')) return;
        dragging = true;
        startX = ev.clientX;
@@ -1642,7 +1654,30 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.slice[data-video]').forEach(s=>{
       const id = s.dataset.video;
       if (!id) return;
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let isScrolling = false;
+
+      s.addEventListener('touchstart', (e) => {
+        isScrolling = false;
+        if (e.touches && e.touches[0]) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      s.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) {
+          const dx = Math.abs(e.touches[0].clientX - touchStartX);
+          const dy = Math.abs(e.touches[0].clientY - touchStartY);
+          if (dx > 6 || dy > 6) {
+            isScrolling = true;
+          }
+        }
+      }, { passive: true });
+
       const playVideo = (e) => {
+        if (isScrolling) return;
         if (e) {
           e.preventDefault();
           e.stopPropagation();
@@ -1652,7 +1687,13 @@ document.addEventListener('DOMContentLoaded', () => {
       s.addEventListener('click', playVideo);
       const button = s.querySelector('.video-play');
       if (button) {
-        button.addEventListener('click', playVideo);
+        button.addEventListener('click', (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          openVideo(id);
+        });
       }
     });
   })();
