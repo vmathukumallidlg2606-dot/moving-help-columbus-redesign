@@ -1106,9 +1106,32 @@ form.addEventListener('submit',e=>{
   status.textContent='Message prepared, not sent. Open your messaging app or copy it below.';
   preview.focus();
 });
-document.querySelector('#copy').addEventListener('click',async()=>{
-  try{await navigator.clipboard.writeText(preview.value);status.textContent='Message copied. Nothing has been sent.'}
-  catch{preview.focus();preview.select();status.textContent='Select and copy the message, then paste it into your messaging app.'}
+const copyBtn = document.querySelector('#copy');
+copyBtn.addEventListener('click', async () => {
+  const orig = copyBtn.textContent;
+  let copied = false;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(preview.value);
+      copied = true;
+    }
+  } catch (e) {}
+  if (!copied) {
+    try {
+      preview.focus();
+      preview.select();
+      copied = document.execCommand('copy');
+    } catch (e) {}
+  }
+  if (copied) {
+    status.textContent = 'Message copied to clipboard! Nothing has been sent.';
+    copyBtn.textContent = '✓ Copied!';
+    setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+  } else {
+    preview.focus();
+    preview.select();
+    status.textContent = 'Select and copy the message, then paste it into your messaging app.';
+  }
 });
 
 (()=>{
@@ -1491,7 +1514,15 @@ document.addEventListener('DOMContentLoaded', () => {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   };
 
+  let activeChatSession = 0;
+  let chatAbortController = null;
+
   const resetChat = () => {
+    activeChatSession++;
+    if (chatAbortController) {
+      try { chatAbortController.abort(); } catch(e) {}
+      chatAbortController = null;
+    }
     renderChat(defaultMessages.map((text) => ({ role: 'assistant', text })));
   };
 
@@ -1517,15 +1548,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const askLLM = async (question) => {
     try {
+      if (chatAbortController) {
+        try { chatAbortController.abort(); } catch(e) {}
+      }
+      chatAbortController = new AbortController();
       const params = new URLSearchParams({ question });
       const baseUrl = getAssistantBaseUrl();
-      const response = await fetch(`${baseUrl}/api/chat?${params.toString()}`);
+      const response = await fetch(`${baseUrl}/api/chat?${params.toString()}`, { signal: chatAbortController.signal });
       if (!response.ok) {
         throw new Error('Unable to reach assistant service');
       }
       const payload = await response.json();
       return payload.answer || 'I could not find an answer in the business context file.';
     } catch (error) {
+      if (error && error.name === 'AbortError') return null;
       return 'I could not reach the AI assistant. Make sure the public chat tunnel is running and the local Ollama service is available.';
     }
   };
@@ -1561,10 +1597,12 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const question = chatInput.value.trim();
     if (!question) return;
+    const currentSession = activeChatSession;
     addMessage(question, 'user');
     chatInput.value = '';
     addMessage('Thinking…', 'assistant');
     const answer = await askLLM(question);
+    if (activeChatSession !== currentSession || answer === null) return;
     const lastMessage = chatMessages.querySelector('.message.assistant:last-child');
     if (lastMessage && lastMessage.textContent === 'Thinking…') {
       lastMessage.textContent = answer;
