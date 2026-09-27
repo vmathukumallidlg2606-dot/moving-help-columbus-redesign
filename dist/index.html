@@ -1404,6 +1404,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!hostname || hostname === 'localhost' || hostname === '127.0.0.1') {
       return 'http://127.0.0.1:8789';
     }
+    if (hostname.includes('github.io')) {
+      return 'https://winston-flash-advantages-arbitration.trycloudflare.com';
+    }
     const originHost = hostname.replace(/^www\./i, '');
     return `https://chat.${originHost}`;
   };
