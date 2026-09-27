@@ -258,6 +258,8 @@ h3{font-size:25px;line-height:1.25;letter-spacing:-.6px;margin-bottom:17px}
 .price-card .button{width:100%}
 .featured{border-color:#ff743d;box-shadow:0 15px 30px #10213706}
 .featured .price-top b{background:#fff0e8}
+.trust-guarantee-banner{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;padding:14px 20px;border-radius:12px;background:#fff0ea;border:1px solid #ffd9c3;color:#8b2d10;font-size:14px;font-weight:600;margin-bottom:28px;text-align:center}
+.trust-guarantee-banner strong{color:#5a1c09}
 .promo-strip{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff,#f8fafc);margin:18px 0 12px}
 .promo-strip span{font-weight:700;color:var(--ink)}
 .promo-strip span:last-child{color:#8b2d10}
@@ -346,7 +348,7 @@ h1{font-size:58px}
 .shell{width:calc(100% - 36px)}
 .hero-pin,.explode-pin{height:auto}
 .hero-sticky,.explode-sticky{position:relative;min-height:0}
-.hero-layout,.explode-heading,.about,.faq,.quote-grid,.services,.price-grid,.review-grid,.video-grid,.quote-rail{grid-template-columns:1fr;display:block}
+.hero-layout,.explode-heading,.about,.faq,.quote-grid,.services,.price-grid,.review-grid,.video-grid,.quote-rail,.eviction-grid{grid-template-columns:1fr;display:block}
 .top nav{display:none}
 .menu{display:block;border:1px solid #ffffff30;border-radius:8px;background:transparent;color:#fff;padding:9px 11px;font-size:13px}
 h1{font-size:clamp(44px,11vw,64px);letter-spacing:-2.4px}
@@ -546,8 +548,17 @@ html{scroll-behavior:auto}
             <a class="simple" href="tel:+16147173969">Talk with us <span>↗</span></a>
           </div>
         </div>
-        <div class="hero-meta"><span>Locally owned &amp; operated</span><span>Local + long distance</span></div>
-        <div class="hero-hours-banner"><strong>Open 7 days a week 6 a.m. to 10 p.m.</strong><span>or TEXT 24/7 us at <a href="tel:+16147173969">614-717-3969</a></span></div>
+        <div class="hero-meta">
+          <span>Locally owned &amp; operated</span>
+          <span>Local + long distance</span>
+          <span>Reserve with no credit card</span>
+          <span>Pay when complete</span>
+        </div>
+        <div class="hero-hours-banner">
+          <strong>Open 7 days a week 6 a.m. to 10 p.m.</strong>
+          <span>or TEXT 24/7 us at <a href="tel:+16147173969">614-717-3969</a></span>
+          <span style="opacity:0.9;border-top:1px solid rgba(255,255,255,0.14);padding-top:6px;margin-top:2px;width:100%;display:block;font-size:12px;">📍 <strong>868 W Lane Ave, Columbus, OH 43221</strong> (right by OSU campus and Upper Arlington)</span>
+        </div>
       </div>
       <div class="stage" id="stage" aria-hidden="true">
         <div class="world" id="world">
@@ -581,6 +592,7 @@ html{scroll-behavior:auto}
   </div>
 
 <section class="scroll-quote-wrap" id="scroll-quote" aria-label="Quick quote CTA">
+  <div id="quote" style="position:relative;top:-72px;"></div>
   <div class="shell quote-rail reveal">
     <div class="quote-copy">
       <p class="eyebrow">05 / LET’S GET YOU THERE</p>
@@ -722,7 +734,7 @@ html{scroll-behavior:auto}
           <article class="service-card">
             <span class="service-tag">Packing &amp; supplies</span>
             <h3>Packing support</h3>
-            <p>Boxes, wrap, packing labor, and supplies to keep your move organized and efficient from start to finish.</p>
+            <p>Boxes, tape, shrink wrap, and packing labor. Order from our Lane Ave counter and receive <strong>FREE delivery</strong> when you hire our movers!</p>
             <a href="#quote" class="service-link">Get packing help ↗</a>
           </article>
 
@@ -767,11 +779,58 @@ html{scroll-behavior:auto}
 
   </section>
 
+  <section id="eviction" class="eviction-wrap shell" aria-label="Eviction and property clean-out services">
+    <div class="eviction-grid reveal">
+      <div class="eviction-copy">
+        <p class="eyebrow" style="color:var(--orange);">SPECIALIZED PROPERTY SERVICES</p>
+        <h2>Qualified Eviction &amp;<br>Clean-Out Specialists</h2>
+        <p>Tenant turnover, property abandonment, and eviction set-outs require strict adherence to legal timelines, respectful handling, and rapid turnaround. Owner Bruce Taylor is a qualified central Ohio eviction specialist who coordinates directly with property managers, landlords, and sheriff guidelines.</p>
+        <p>From single-unit tenant cleanouts to complete foreclosure clearances, our crews arrive fully equipped to pack, clear, stage, or dispose on short notice.</p>
+        <ul class="eviction-points">
+          <li><strong>County Sheriff Timeline Compliance:</strong> Experienced in Franklin, Delaware, Pickaway, and Fairfield County eviction procedures and set-out requirements.</li>
+          <li><strong>Same-Day &amp; Next-Day Availability:</strong> Fast mobilization to meet strict court deadlines and minimize property vacancy downtime.</li>
+          <li><strong>Full-Service Junk Removal &amp; Disposal:</strong> We haul furniture, debris, appliances, and tenant leftovers with responsible sorting, donations, and disposal.</li>
+          <li><strong>Broom-Swept Property Turnover:</strong> We leave units clean, empty, and ready for maintenance or re-leasing.</li>
+        </ul>
+        <div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+          <a class="button dark" href="tel:+16147173969">Speak with Bruce directly ↗</a>
+          <a class="simple" href="sms:+16147173969?body=Hi%20Bruce%2C%20I%20need%20assistance%20with%20an%20eviction%20or%20property%20cleanout.">Text for fast scheduling ↗</a>
+        </div>
+      </div>
+      <div class="eviction-copy" style="background:#0b1524;color:#f4f7fb;display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <span class="service-tag" style="background:rgba(255,116,61,0.2);color:#ff9b5d;">CENTRAL OHIO COVERAGE</span>
+          <h3 style="color:#fff;margin:18px 0 12px;font-size:24px;">Four-County Eviction Service Area</h3>
+          <p style="color:#9aa8b8;font-size:14px;line-height:1.7;">We provide dedicated eviction and clean-out crews throughout central Ohio, including:</p>
+          <ul style="list-style:none;padding:0;margin:14px 0 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;font-weight:600;">
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> Franklin County</li>
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> Delaware County</li>
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> Pickaway County</li>
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> Fairfield County</li>
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> Short North &amp; OSU</li>
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> German Village</li>
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> Clintonville &amp; Dublin</li>
+            <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--orange);">•</span> Upper Arlington</li>
+          </ul>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.12);padding-top:20px;margin-top:20px;">
+          <strong style="display:block;font-size:16px;color:#fff;">Need emergency cleanout labor?</strong>
+          <p style="font-size:13px;color:#9aa8b8;margin:6px 0 14px;">Call or text Bruce anytime at <a href="tel:+16147173969" style="color:var(--orange);font-weight:700;">614-717-3969</a> for immediate response.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="pricing" class="pricing section">
     <div class="shell">
       <div class="section-heading reveal">
         <div><p class="eyebrow">02 / A CLEAR STARTING POINT</p><h2>Your move.<br>Your kind of help.</h2></div>
         <p>Two local packages listed on the current site.<br>Confirm your details and availability with Bruce.</p>
+      </div>
+      <div class="trust-guarantee-banner reveal">
+        <span>✓ <strong>Reserve with no credit card</strong> — Pay when the service is complete.</span>
+        <span>✓ <strong>No hidden fees</strong> for stairs, boxes, or furniture assembly.</span>
+        <span>✓ <strong>No weekend upcharge</strong> — Same rate 7 days a week.</span>
       </div>
       <div class="price-grid">
         <article class="price-card reveal">
@@ -779,7 +838,13 @@ html{scroll-behavior:auto}
           <div class="price">$350<span>/ local package</span></div>
           <p>For a smaller move or a focused helping hand.</p>
           <div class="promo-badge">$50 off when you book today</div>
-          <ul><li>2 movers + 26-foot box truck</li><li>Local move, 20-mile maximum</li><li>Dolly + 12 moving blankets</li><li>Fuel and tax included</li></ul>
+          <ul>
+            <li>2 movers + 26-foot box truck</li>
+            <li>Local move, 20-mile maximum</li>
+            <li>Dolly + 12 moving blankets</li>
+            <li>Fuel and tax included</li>
+            <li><strong>No deposit required to reserve</strong></li>
+          </ul>
           <p class="card-discount-note">* Same day service available</p>
           <p class="card-discount-note">* Seniors, first responders, teachers, military, and law enforcement — Get specialized discounts</p>
           <a class="button dark" href="sms:+16147173969">Ask about the 2-hour move ↗</a>
@@ -789,33 +854,55 @@ html{scroll-behavior:auto}
           <div class="price">$650<span>/ local package</span></div>
           <p>More time for the belongings that make it home.</p>
           <div class="promo-badge">$50 off when you book today</div>
-          <ul><li>2 movers + 26-foot box truck</li><li>Local move, 20-mile maximum</li><li>Dolly + 12 moving blankets</li><li>Fuel and tax included</li></ul>
+          <ul>
+            <li>2 movers + 26-foot box truck</li>
+            <li>Local move, 20-mile maximum</li>
+            <li>Dolly + 12 moving blankets</li>
+            <li>Fuel and tax included</li>
+            <li><strong>Pay when service is complete</strong></li>
+          </ul>
           <p class="card-discount-note">* Same day service available</p>
           <p class="card-discount-note">* Seniors, first responders, teachers, military, and law enforcement — Get specialized discounts</p>
           <a class="button orange" href="sms:+16147173969">Ask about the 4-hour move ↗</a>
         </article>
       </div>
+
       <div class="promo-strip reveal">
-        <span>Get paid up to $100 per referral</span>
-        <span>Refer a friend, family member, or neighbor and we’ll take care of the next move.</span>
+        <span><strong>Flexible Budget Payment Plans:</strong> Are you on a budget? Make monthly payments towards your future move!</span>
+        <span><a href="tel:+16147173969" style="text-decoration:underline;">Call Bruce for details ↗</a></span>
       </div>
-      <p class="price-note">Prices reflect the original website as reviewed September 24, 2026 and include the advertised $50 discount for same-day bookings. Additional time or items may cost extra; some services require a deposit. Confirm all pricing and terms before booking.</p>
-      <div class="discount"><strong>A little extra support.</strong><span>Ask about discounts for seniors, first responders, teachers, military, and law enforcement — Get specialized discounts.</span></div>
+      <div class="promo-strip reveal">
+        <span><strong>Free Delivery on Moving Supplies:</strong> Order your boxes, tape, and shrink wrap from our Lane Ave supply counter and receive FREE delivery when you hire our movers.</span>
+        <span><a href="tel:+16147173969" style="text-decoration:underline;">Order supplies ↗</a></span>
+      </div>
+      <div class="promo-strip reveal">
+        <span><strong>Get paid up to $100 per referral:</strong> Refer a friend, family member, or neighbor and we’ll make it worth your while.</span>
+        <span><strong>Loyalty Reward:</strong> Every 3rd move is up to 25% OFF!</span>
+      </div>
+
+      <p class="price-note">Prices reflect the original website as reviewed September 24, 2026 and include the advertised $50 discount for same-day bookings. Additional time or items may cost extra; some specialty services require a deposit. Confirm all pricing and terms before booking.</p>
+      <div class="discount"><strong>A little extra support.</strong><span>Discounts up to 10% for seniors, first responders, teachers, military, and law enforcement. We proudly partner with senior organizations and Franklin County Senior Options.</span></div>
     </div>
   </section>
 
   <section id="about" class="section shell about">
     <div class="owner-panel reveal">
-      <p class="eyebrow">LOCAL PEOPLE. PERSONAL SERVICE.</p>
+      <div style="display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(255,116,61,0.22);color:#ff9b5d;border:1px solid rgba(255,116,61,0.35);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;">★ 20th Anniversary (2009–2026)</div>
+      <p class="eyebrow" style="color:var(--orange);">LOCAL PEOPLE. PERSONAL SERVICE.</p>
       <div class="owner-type">A real person.<br>From the<br><em>first hello.</em></div>
-      <div class="owner-name"><span class="initials">BT</span><div><strong>Bruce Taylor</strong><span>Owner · Moving Help Columbus Ohio</span></div></div>
+      <div class="owner-name"><span class="initials">BT</span><div><strong>Bruce Taylor</strong><span>Founder &amp; Owner · Moving Help Columbus Ohio</span></div></div>
+      <div style="margin-top:22px;border-top:1px solid rgba(255,255,255,0.14);padding-top:18px;font-size:13px;color:#c0cbd8;line-height:1.6;">
+        📍 <strong>868 W Lane Ave, Columbus, OH 43221</strong><br>
+        Right by OSU campus and Upper Arlington, proudly serving all central Ohio.
+      </div>
     </div>
     <div class="about-copy reveal">
       <p class="eyebrow">03 / MEET YOUR MOVING HELP</p>
-      <h2>Big on service.<br>Close to home.</h2>
-      <p>Moving comes with enough decisions. Getting the right help should feel straightforward.</p>
-      <p>Locally owned and operated, Moving Help Columbus Ohio puts you in touch with owner Bruce Taylor for calls, texts, and scheduling. Talk through your move directly with the person helping organize it.</p>
-      <a class="simple" href="tel:+16147173969" style="border-color:#dce1e7">Let’s talk about your move ↗</a>
+      <h2>Founded in Columbus.<br>Built on family values.</h2>
+      <p>Moving comes with enough decisions. Getting trustworthy help shouldn’t be one of them.</p>
+      <p>Moving Help Columbus Ohio was founded in <strong>2009 by Bruce Taylor</strong>, celebrating nearly <strong>20 years of dedicated service</strong> in central Ohio. Bruce’s work ethic began at just 9 years old, helping his grandparents run their neighborhood family store right here in Columbus. Learning behind that counter taught him personal accountability, treating neighbors like family, and taking pride in every job.</p>
+      <p>When you reach out, you deal directly with the owner. Bruce answers calls and texts, gives straightforward quotes, and often works on-site alongside his crew on move day. No call centers, no surprises — just honest, professional moving help.</p>
+      <a class="simple" href="tel:+16147173969" style="border-color:#dce1e7">Call or text Bruce at 614-717-3969 ↗</a>
       <div class="mini-steps"><div><b>01</b><span>Tell us the details</span></div><div><b>02</b><span>Confirm your quote</span></div><div><b>03</b><span>Get moving</span></div></div>
     </div>
   </section>
@@ -873,7 +960,15 @@ html{scroll-behavior:auto}
           <small>Watch video ↗</small>
         </a>
       </div>
-      <p class="review-source">Additional clips and photo galleries are available through the company’s public links and YouTube channel.</p>
+      <div class="real-media-banner reveal" style="margin-top:34px;padding:26px 28px;border:1px solid rgba(255,116,61,0.25);border-radius:18px;background:linear-gradient(135deg,#0d1b2c,#0b1524);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+        <div style="max-width:680px;">
+          <span style="display:inline-block;padding:5px 12px;border-radius:999px;background:var(--orange);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;">★ Authentic Proof of Work</span>
+          <h3 style="font-size:22px;margin:0 0 8px;letter-spacing:-0.4px;color:#fff;">See 100+ Real Moves &amp; Clean-Outs in Our Live Album</h3>
+          <p style="margin:0;color:#c0cbd8;font-size:14px;line-height:1.6;">Beyond 3D concepts, see actual unedited photos and video clips of our crews loading trucks, handling high-end furniture, and completing property cleanouts across central Ohio.</p>
+        </div>
+        <a class="button orange" href="https://photos.app.goo.gl/AhdXKyxZK6fKaBEv8" target="_blank" rel="noopener" style="font-size:14px;white-space:nowrap;">Open Real Photos Album ↗</a>
+      </div>
+      <p class="review-source" style="margin-top:20px;">Additional clips and photo galleries are available through the company’s public links, YouTube channel, and Google Photos album.</p>
     </div>
   </section>
 
@@ -884,30 +979,35 @@ html{scroll-behavior:auto}
     </div>
     <div class="accordions">
       <details><summary>Can you help with a same-day move?</summary><p>The business advertises same-day service. Call or text to confirm crew and truck availability for your date; availability is not guaranteed.</p></details>
-      <details><summary>Do you move outside Columbus?</summary><p>Yes. The original site lists local and long-distance moving. Contact Bruce with your pickup and destination details for a custom quote.</p></details>
+      <details><summary>Do you move outside Columbus?</summary><p>Yes. The original site lists local and long-distance moving. We serve Franklin, Delaware, Pickaway, and Fairfield counties, plus long-distance relocations nationwide.</p></details>
       <details><summary>Can I book help without a truck?</summary><p>Moving labor is available separately from truck-and-labor service. Explain whether you need loading, unloading, or help moving items within your space.</p></details>
       <details><summary>What should I include when asking for a quote?</summary><p>Your preferred date, pickup and destination areas, home size, stairs or elevators, and any large or delicate items. Share whether you need a truck, packing, or labor only.</p></details>
-      <details><summary>Are there extra charges or deposits?</summary><p>The original site notes that additional time or items may cost extra and some services require a deposit. Ask for the full scope and payment terms before confirming.</p></details>
+      <details><summary>Are there extra charges or deposits?</summary><p>We have NO hidden fees and do not charge extra for stairs, boxes, or furniture assembly. You can reserve with no credit card and pay when the job is complete. Some specialty services may require a deposit.</p></details>
     </div>
   </section>
-
-  <section id="quote" class="quote-section" style="display:none;" aria-hidden="true"></section>
 </main>
 
 <footer class="shell">
   <div class="footer-top">
     <a class="brand" href="#hero"><img src="assets/moving_company_logo.jpg" alt="Moving Help Columbus Ohio Logo" style="height: 60px; width: auto; border-radius: 8px;"></a>
-    <p>Your next chapter.<br>Our kind of move.</p>
-    <a href="tel:+16147173969">Call 614-717-3969 ↗</a>
+    <div>
+      <p style="margin:0;font-weight:700;color:var(--ink);font-size:16px;">Moving Help Columbus Ohio</p>
+      <p style="margin:4px 0 0;font-size:13px;color:var(--muted);">📍 868 W Lane Ave, Columbus, OH 43221 (Near OSU &amp; Upper Arlington)</p>
+      <p style="margin:2px 0 0;font-size:12px;color:var(--muted);">Open 7 days a week 6 a.m. to 10 p.m. · TEXT 24/7 at 614-717-3969</p>
+    </div>
+    <a href="tel:+16147173969" style="font-size:18px;font-weight:800;color:var(--navy);">614-717-3969 ↗</a>
   </div>
   <div class="footer-links">
     <a href="#reviews">Customer reviews</a>
     <a href="#videos">Videos</a>
-    <a href="https://movinghelpcolumbusohio.com/moving-eviction-pictures" target="_blank" rel="noopener">Moving gallery ↗</a>
-    <a href="https://movinghelpcolumbusohio.com/moving-supplies" target="_blank" rel="noopener">Moving supplies ↗</a>
-    <a href="https://movinghelpcolumbusohio.com/contact" target="_blank" rel="noopener">Contact &amp; updates ↗</a>
+    <a href="#eviction">Eviction services</a>
+    <a href="https://photos.app.goo.gl/AhdXKyxZK6fKaBEv8" target="_blank" rel="noopener">Real move photos album ↗</a>
+    <a href="https://movinghelpcolumbusohio.com/moving-supplies" target="_blank" rel="noopener">Moving supplies counter ↗</a>
+    <a href="#about">Founder story</a>
   </div>
-  <div class="footer-bottom">
+  <div class="footer-bottom" style="display:flex;justify-content:space-between;padding:22px 0;font-size:12px;color:var(--muted);border-top:1px solid var(--line);flex-wrap:wrap;gap:12px;">
+    <span>© 2009–2026 Moving Help Columbus Ohio, LLC. All rights reserved. Locally owned &amp; operated by Bruce Taylor.</span>
+    <span>Serving Franklin, Delaware, Pickaway &amp; Fairfield Counties.</span>
   </div>
 </footer>
 <div class="mobile-dock"><a href="tel:+16147173969">Call Bruce</a><a href="#quote">Plan my move ↗</a></div>
